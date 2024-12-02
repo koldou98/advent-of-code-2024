@@ -34,8 +34,9 @@ pub fn part_two(input: &str) -> Option<usize> {
                 .split_whitespace()
                 .map(|x| x.parse::<i8>().unwrap())
                 .collect();
-            let combinations = produce_combinations(split);
-            for combination in combinations {
+            for i in 0..split.len() {
+                let mut combination = split.clone();
+                combination.remove(i);
                 if is_valid_combination(combination) {
                     return true;
                 }
@@ -80,16 +81,6 @@ fn is_not_valid(a: i8, b: i8) -> bool {
         result = true;
     }
     result
-}
-
-fn produce_combinations(ints: Vec<i8>) -> Vec<Vec<i8>> {
-    let mut combinations = vec![];
-    for i in 0..ints.len() {
-        let mut vec = ints.clone();
-        vec.remove(i);
-        combinations.push(vec)
-    }
-    combinations
 }
 
 #[cfg(test)]
