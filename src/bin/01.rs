@@ -13,15 +13,9 @@ pub fn part_one(input: &str) -> Option<i32> {
     });
     left.sort();
     right.sort();
-    Some(
-        left.iter()
-            .enumerate()
-            .map(|(i, &l)| {
-                let r = right.get(i).unwrap();
-                (r - l).abs()
-            })
-            .sum(),
-    )
+
+    let result = left.iter().zip(right).map(|(l, r)| (l - r).abs()).sum();
+    Some(result)
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
