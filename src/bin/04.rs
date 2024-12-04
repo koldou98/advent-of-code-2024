@@ -162,6 +162,48 @@ fn check_diagonal(diagonal: [char; 2]) -> bool {
     diagonal == ['S', 'M'] || diagonal == ['M', 'S']
 }
 
+#[allow(dead_code)]
+// Function to iterate over all the possible combinations of an element
+fn find_xmas_loop(matrix: &[Vec<char>], height: usize, width: usize, y: usize, x: usize) -> u32 {
+    let mut result = 0;
+    let directions: [(isize, isize); 8] = [
+        (0, 1),
+        (0, -1),
+        (1, 0),
+        (-1, 0),
+        (1, 1),
+        (-1, 1),
+        (1, -1),
+        (-1, -1),
+    ];
+    let target = ['X', 'M', 'A', 'S'];
+
+    for direction in directions {
+        let mut valid = true;
+        if x as isize + direction.0 * 3 < 0
+            || x as isize + direction.0 * 3 >= width as isize
+            || y as isize + direction.1 * 3 < 0
+            || y as isize + direction.1 * 3 >= height as isize
+        {
+            continue;
+        }
+
+        for (i, char) in target.iter().enumerate().skip(1) {
+            let new_x = direction.0 * i as isize + x as isize;
+            let new_y = direction.1 * i as isize + y as isize;
+            if matrix[new_y as usize][new_x as usize] != *char {
+                valid = false;
+                break;
+            }
+        }
+        if valid {
+            result += 1;
+        }
+    }
+    result
+}
+
+
 #[cfg(test)]
 mod tests {
     use super::*;
