@@ -33,7 +33,7 @@ pub fn part_two(input: &str) -> Option<usize> {
         for (i, antenna) in v.iter().enumerate() {
             antinodes.insert((antenna.0 as isize, antenna.1 as isize));
             for antenna_to_check in v.iter().skip(i + 1) {
-                add_antinodes_loop(&mut antinodes, antenna, antenna_to_check, max_y, max_x);
+                add_resonant_harmonics_antinodes(&mut antinodes, antenna, antenna_to_check, max_y, max_x);
             }
         }
     });
@@ -59,7 +59,7 @@ fn parse_input(input: &str) -> HashMap<char, Vec<(usize, usize)>> {
     antennas
 }
 
-fn add_antinodes_loop(
+fn add_resonant_harmonics_antinodes(
     antinodes: &mut HashSet<(isize, isize)>,
     antenna: &(usize, usize),
     antenna_to_check: &(usize, usize),
