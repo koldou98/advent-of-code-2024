@@ -33,7 +33,13 @@ pub fn part_two(input: &str) -> Option<usize> {
         for (i, antenna) in v.iter().enumerate() {
             antinodes.insert((antenna.0 as isize, antenna.1 as isize));
             for antenna_to_check in v.iter().skip(i + 1) {
-                add_resonant_harmonics_antinodes(&mut antinodes, antenna, antenna_to_check, max_y, max_x);
+                add_resonant_harmonics_antinodes(
+                    &mut antinodes,
+                    antenna,
+                    antenna_to_check,
+                    max_y,
+                    max_x,
+                );
             }
         }
     });

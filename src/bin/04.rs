@@ -203,7 +203,6 @@ fn find_xmas_loop(matrix: &[Vec<char>], height: usize, width: usize, y: usize, x
     result
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
