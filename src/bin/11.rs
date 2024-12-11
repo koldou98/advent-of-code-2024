@@ -26,11 +26,7 @@ pub fn part_two(input: &str) -> Option<usize> {
     Some(result)
 }
 
-fn apply_rules<'a>(
-    stone: String,
-    times: usize,
-    memo: &mut HashMap<(String, usize), usize>,
-) -> usize {
+fn apply_rules(stone: String, times: usize, memo: &mut HashMap<(String, usize), usize>) -> usize {
     if memo.contains_key(&(stone.clone(), times)) {
         return memo[&(stone, times)];
     }
