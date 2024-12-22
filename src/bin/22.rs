@@ -1,4 +1,4 @@
-use std::collections::{HashMap, HashSet};
+use std::collections::{HashMap, HashSet, VecDeque};
 
 advent_of_code::solution!(22);
 
@@ -24,32 +24,40 @@ pub fn part_one(input: &str) -> Option<usize> {
     Some(result)
 }
 
-pub fn part_two(input: &str) -> Option<usize> {
+pub fn part_two(input: &str) -> Option<isize> {
     let mut sequence_total = HashMap::new();
     for line in input.lines() {
         let mut num = line.parse::<usize>().unwrap();
-        let mut buyer = Vec::from([num % 10]);
+        let mut buyer = VecDeque::from([num % 10]);
+        let mut seen = HashSet::new();
         for _ in 0..2000 {
             num = calculate_step(num);
-            buyer.push(num % 10);
-        }
-        let mut seen = HashSet::new();
-        for i in 0..buyer.len() - 4 {
-            let slice = &buyer[i..i + 5];
-            let mut sequences = Vec::new();
-            for i in 1..slice.len() {
-                sequences.push(slice[i] as isize - slice[i - 1] as isize)
+            buyer.push_back(num % 10);
+            if buyer.len() >= 5 {
+                let slice = (
+                    buyer[0] as isize,
+                    buyer[1] as isize,
+                    buyer[2] as isize,
+                    buyer[3] as isize,
+                    buyer[4] as isize,
+                );
+                buyer.pop_front();
+                let sequences = (
+                    slice.1 - slice.0,
+                    slice.2 - slice.1,
+                    slice.3 - slice.2,
+                    slice.4 - slice.3,
+                );
+                if seen.contains(&sequences) {
+                    continue;
+                }
+                seen.insert(sequences);
+                let sequence_last_value = slice.4;
+                sequence_total
+                    .entry(sequences)
+                    .and_modify(|e| *e += sequence_last_value)
+                    .or_insert(sequence_last_value);
             }
-            let sequences = (sequences[0], sequences[1], sequences[2], sequences[3]);
-            if seen.contains(&sequences) {
-                continue;
-            }
-            seen.insert(sequences);
-            let sequence_last_value = *slice.last().unwrap();
-            sequence_total
-                .entry(sequences)
-                .and_modify(|e| *e += sequence_last_value)
-                .or_insert(sequence_last_value);
         }
     }
     let result = sequence_total.values().max().unwrap();
