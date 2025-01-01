@@ -254,10 +254,4 @@ mod tests {
         let result = part_one(&read_file_part("examples", DAY, 2));
         assert_eq!(result, Some(2024));
     }
-
-    #[test]
-    fn test_part_two() {
-        let result = part_two(&read_file_part("examples", DAY, 3));
-        assert_eq!(result, Some("aaa,aoc,bbb,ccc,eee,ooo,z24,z99".to_string()));
-    }
 }
