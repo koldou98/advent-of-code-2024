@@ -55,7 +55,7 @@ fn get_heigths(transposed_grid: Vec<Vec<char>>) -> Vec<usize> {
         .collect()
 }
 
-pub fn part_two(input: &str) -> Option<u64> {
+pub fn part_two(_: &str) -> Option<u64> {
     None
 }
 
