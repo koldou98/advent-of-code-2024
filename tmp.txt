@@ -1,0 +1,3 @@
+Day 17:
+https://www.reddit.com/r/adventofcode/comments/1hg38ah/comment/m2jgtn3/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+ Figured out that register A is divided by 8 every run and 0-7 give single digit outputs. So the final(nth) output is the output from the quotient of A divided by 8^(n-1). Knowing that, find out which (if any) of 0-7 gives the right number. Multiply those by 8, add 0-7 to each, and rerun to find which gives the right final two outputs. Repeat until there's a list of numbers that give all of the right outputs and take the smallest.

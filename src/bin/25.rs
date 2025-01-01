@@ -30,9 +30,9 @@ pub fn part_one(input: &str) -> Option<u64> {
         let transposed_grid = transpose(&grid);
 
         if transposed_grid[0][0] == '#' {
-            locks.push(get_heigths(transposed_grid));
+            locks.push(get_height(transposed_grid));
         } else {
-            keys.push(get_heigths(transposed_grid));
+            keys.push(get_height(transposed_grid));
         }
     }
 
@@ -48,7 +48,7 @@ pub fn part_one(input: &str) -> Option<u64> {
     Some(total)
 }
 
-fn get_heigths(transposed_grid: Vec<Vec<char>>) -> Vec<usize> {
+fn get_height(transposed_grid: Vec<Vec<char>>) -> Vec<usize> {
     transposed_grid
         .iter()
         .map(|row| row.iter().filter(|c| **c == '#').count() - 1)
